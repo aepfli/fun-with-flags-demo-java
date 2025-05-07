@@ -1,12 +1,11 @@
 package dev.openfeature.demo.java.demo;
 
+import dev.openfeature.contrib.providers.flagd.Config;
+import dev.openfeature.contrib.providers.flagd.FlagdOptions;
+import dev.openfeature.contrib.providers.flagd.FlagdProvider;
 import dev.openfeature.sdk.OpenFeatureAPI;
-import dev.openfeature.sdk.providers.memory.Flag;
-import dev.openfeature.sdk.providers.memory.InMemoryProvider;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.HashMap;
 
 @Configuration
 public class OpenFeatureConfig {
@@ -14,14 +13,11 @@ public class OpenFeatureConfig {
     @PostConstruct
     public void initProvider() {
         OpenFeatureAPI api = OpenFeatureAPI.getInstance();
-        HashMap<String, Flag<?>> flags = new HashMap<>();
-        flags.put("greetings",
-                Flag.builder()
-                        .variant("goodbye", "Goodbye World!")
-                        .variant("hello", "Hello World!")
-                        .defaultVariant("hello")
-                        .build());
+        FlagdOptions flagdOptions = FlagdOptions.builder()
+                .resolverType(Config.Resolver.FILE)
+                .offlineFlagSourcePath("./flags.json")
+                .build();
 
-        api.setProviderAndWait(new InMemoryProvider(flags));
+        api.setProviderAndWait(new FlagdProvider(flagdOptions));
     }
 }

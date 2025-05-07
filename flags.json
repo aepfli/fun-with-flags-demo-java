@@ -1,0 +1,12 @@
+{
+  "flags": {
+    "greetings": {
+      "state": "ENABLED",
+      "variants": {
+        "hello": "Hello World!",
+        "goodbye": "Goodbye World!"
+      },
+      "defaultVariant": "hello"
+    }
+  }
+}
