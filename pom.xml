@@ -43,8 +43,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>dev.openfeature.contrib.hooks</groupId>
+			<artifactId>otel</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 
 		<!-- add dependencies here -->
+
+		<dependency>
+			<groupId>dev.openfeature</groupId>
+			<artifactId>sdk</artifactId>
+			<version>1.14.2</version>
+		</dependency>
 
 	</dependencies>
 

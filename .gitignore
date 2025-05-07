@@ -3,4 +3,3 @@
 /.idea
 demo.iml
 .env.local
-opentelemetry-javaagent.jar
