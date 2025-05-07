@@ -3,10 +3,24 @@
     "greetings": {
       "state": "ENABLED",
       "variants": {
+        "hallo": "Hallo Welt!",
         "hello": "Hello World!",
         "goodbye": "Goodbye World!"
       },
-      "defaultVariant": "hello"
+      "defaultVariant": "hello",
+      "targeting": {
+        "if": [
+          {
+            "===": [
+              {
+                "var": "language"
+              },
+              "de"
+            ]
+          },
+          "hallo"
+        ]
+      }
     }
   }
 }
