@@ -45,7 +45,11 @@
 		</dependency>
 
 		<!-- add dependencies here -->
-
+		<dependency>
+			<groupId>dev.openfeature</groupId>
+			<artifactId>sdk</artifactId>
+			<version>1.14.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
