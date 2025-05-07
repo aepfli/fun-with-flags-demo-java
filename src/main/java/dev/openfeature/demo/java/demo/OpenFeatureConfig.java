@@ -21,7 +21,7 @@ public class OpenFeatureConfig implements WebMvcConfigurer {
     public void initProvider() {
         OpenFeatureAPI api = OpenFeatureAPI.getInstance();
         FlagdOptions flagdOptions = FlagdOptions.builder()
-                .resolverType(Config.Resolver.FILE)
+                .resolverType(Config.Resolver.RPC)
                 .offlineFlagSourcePath("./flags.json")
                 .build();
 
