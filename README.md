@@ -361,3 +361,42 @@ Hooks allow us to enhance our code during feature flag evaluations, without writ
    
    Take a look at the console, and see what kind of information you are getting.
 
+## Step 5 Remote flagd
+
+We already showed the file mode, which is good for getting a glimpse of the functionality, but flagd is more powerful.
+So let's use flagd as a standalone process to fetch feature flag configurations.
+
+### Step 5.1 Setup Flagd Standalone
+
+1. We need a docker compose file (./docker-compose.yaml) , exposing the ports, and utilizing the same file
+   ```yaml
+   services:
+     flagd:
+       stdin_open: true
+       tty: true
+       container_name: flagd
+       image: ghcr.io/open-feature/flagd:latest
+       ports:
+         - "8013:8013"
+         - "8014:8014"
+         - "8015:8015"
+         - "8016:8016"
+       env_file:
+         - .env.local
+       volumes:
+         - "./flags.json:/flags.json"
+       command: start --uri file:./flags.json
+   ```
+
+2. We can start the docker container with `docker compose up` within a terminal.
+3. Let's change the flagd provider mode to either `RPC` or `IN_PROCESS`
+   ```java
+   FlagdOptions flagdOptions = FlagdOptions.builder()
+          .resolverType(Config.Resolver.RPC)
+          .offlineFlagSourcePath("./flags.json")
+          .build();
+   ```
+
+There are two different behaviours we can observe depending on the mode
+- RPC: everytime we evaluate a flag, we will query flagd for the evaluation.
+- IN_PROCESS: we will be fetching the flag configuration, and only if there is an update to the flags.json, we will get a change event.
